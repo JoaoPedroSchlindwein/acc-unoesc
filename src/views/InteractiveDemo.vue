@@ -80,43 +80,7 @@
     </div>
 
 
-    <div class="next-steps">
-      <h2>🚀 Próximas Melhorias Planejadas</h2>
-      <div class="next-steps-grid">
-        <div class="next-step-card">
-          <h4>🎮 Modo Desafio</h4>
-          <p>Usuário prevê o próximo passo e ganha pontos por acertos</p>
-          <span class="status planning">Em Planejamento</span>
-        </div>
-        <div class="next-step-card">
-          <h4>✏️ Editor de Dados</h4>
-          <p>Modificar array clicando nos valores, arrastar para reordenar</p>
-          <span class="status planning">Em Planejamento</span>
-        </div>
-        <div class="next-step-card">
-          <h4>📊 Comparação Lado a Lado</h4>
-          <p>Executar 2 algoritmos simultaneamente (ex: Busca Linear vs Binária)</p>
-          <span class="status planning">Em Planejamento</span>
-        </div>
-        <div class="next-step-card">
-          <h4>🐛 Debugger Visual</h4>
-          <p>Breakpoints no código, inspect de variáveis, watch expressions</p>
-          <span class="status planning">Em Planejamento</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="feedback-section">
-      <h2>💬 Compartilhe sua Opinião</h2>
-      <p>
-        Essas melhorias tornam o aprendizado mais efetivo? Que outras funcionalidades você gostaria de ver?
-      </p>
-      <div class="feedback-actions">
-        <button class="btn-feedback">📝 Dar Feedback</button>
-        <button class="btn-feedback">⭐ Sugerir Melhoria</button>
-      </div>
-    </div>
-  </div>
+   
 </template>
 
 <script setup>
