@@ -79,31 +79,6 @@
       </div>
     </div>
 
-    <div class="comparison-section">
-      <h2>⚡ Antes vs Depois</h2>
-      <div class="comparison-grid">
-        <div class="comparison-item">
-          <h3>❌ Antes</h3>
-          <ul>
-            <li>Animação automática do início ao fim</li>
-            <li>Sem controle de pausar</li>
-            <li>Velocidade fixa</li>
-            <li>Difícil revisar um passo específico</li>
-            <li>Dados limitados</li>
-          </ul>
-        </div>
-        <div class="comparison-item success">
-          <h3>✅ Depois</h3>
-          <ul>
-            <li>Controle total: play/pause/anterior/próximo</li>
-            <li>Pausar e analisar a qualquer momento</li>
-            <li>Velocidade ajustável (0.5x - 2x)</li>
-            <li>Timeline navegável para qualquer passo</li>
-            <li>Casos de teste rápidos e customizáveis</li>
-          </ul>
-        </div>
-      </div>
-    </div>
 
     <div class="next-steps">
       <h2>🚀 Próximas Melhorias Planejadas</h2>
