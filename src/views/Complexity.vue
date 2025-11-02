@@ -134,7 +134,7 @@ const chartData = computed(() => {
             label: key,
             data: labels.map(n => {
                 const ops = functions[key](n);
-                if (scaleType.value === 'linear' && ops > opsMaxLinear) return null;
+                if (scaleType.value === 'linear' && ops > opsMaxLinear) return opsMaxLinear;;
                 if (scaleType.value === 'log' && (ops <= 0 || !isFinite(ops))) return null;
                 return ops;
             }),
