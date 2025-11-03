@@ -9,6 +9,18 @@
         <h2>Visualização de Escala de Crescimento</h2>
         <p>Passe o mouse sobre a legenda para destacar uma curva. Use o seletor de N para ver os valores exatos em cada ponto.</p>
       
+       <div class="control-section">
+        <label for="n-slider">Selecione o valor de N:</label>
+        <div class="slider-group">
+            <input id="n-slider" v-model.number="interactiveN" type="range" :min="nMin" :max="nMax" step="1" class="n-slider"/>
+            <span class="n-value">{{ interactiveN }}</span>
+        </div>
+        <div class="button-group">
+            <button class="btn btn-sm" :class="{ 'btn-primary': scaleType === 'linear', 'btn-outline': scaleType !== 'linear' }" @click="scaleType = 'linear'">Escala Linear</button>
+            <button class="btn btn-sm" :class="{ 'btn-primary': scaleType === 'log', 'btn-outline': scaleType !== 'log' }" @click="scaleType = 'log'">Escala Log</button>
+        </div>
+      </div>
+
       <div class="chart-wrapper">
         <div class="chart-container">
             <LineChart v-if="chartData" :chartData="chartData" :chartOptions="chartOptions" />
@@ -37,18 +49,6 @@
                     <span>{{ dataset.label }}</span>
                 </div>
             </div>
-        </div>
-      </div>
-
-       <div class="control-section">
-        <label for="n-slider">Selecione o valor de N:</label>
-        <div class="slider-group">
-            <input id="n-slider" v-model.number="interactiveN" type="range" :min="nMin" :max="nMax" step="1" class="n-slider"/>
-            <span class="n-value">{{ interactiveN }}</span>
-        </div>
-        <div class="button-group">
-            <button class="btn btn-sm" :class="{ 'btn-primary': scaleType === 'linear', 'btn-outline': scaleType !== 'linear' }" @click="scaleType = 'linear'">Escala Linear</button>
-            <button class="btn btn-sm" :class="{ 'btn-primary': scaleType === 'log', 'btn-outline': scaleType !== 'log' }" @click="scaleType = 'log'">Escala Log</button>
         </div>
       </div>
     </div>
@@ -116,7 +116,7 @@ const functions = {
 };
 
 const chartData = computed(() => {
-    const labels = Array.from({ length: nMax.value }, (_, i) => i + 1);
+    const labels = Array.from({ length: interactiveN.value }, (_, i) => i + 1);
     const datasets = Object.keys(functions).map(key => {
         const colorMap = {
             'O(log n)': 'hsl(210, 100%, 56%)',
@@ -144,7 +144,7 @@ const chartData = computed(() => {
             backgroundColor: colorMap[key] + '33', 
             tension: 0.1,
             spanGaps: false,
-            fill: isHighlighted && scaleType.value !== 'log' ? 'start' : false,
+            fill: false,
         };
     });
 
@@ -170,56 +170,9 @@ const chartOptions = computed(() => ({
     scales: {
         x: {
             title: { display: true, text: `Tamanho da Entrada (N)` },
-            max: nMax.value,
+            max: interactiveN.value,
         },
-        y: {
-            type: scaleType.value,
-            title: { display: true, text: 'Número de Operações' },
-            min: scaleType.value === 'log' ? 1 : 0,
-            max: scaleType.value === 'linear' ? opsMaxLinear : undefined,
-            ticks: {
-                callback: function(value) {
-                    if (scaleType.value === 'log' && value > 10000) return value.toExponential(0);
-                    if (value >= 1000000) return (value / 1000000) + 'M';
-                    if (value >= 1000) return (value / 1000) + 'k';
-                    return value;
-                }
-            }
-        }
-    },
-    plugins: {
-        legend: { display: false },
-        tooltip: {
-            callbacks: {
-                label: function(context) {
-                    let label = context.dataset.label || '';
-                    if (label) label += ': ';
-                    if (context.parsed.y !== null) {
-                        label += parseFloat(context.parsed.y.toPrecision(3)).toLocaleString();
-                    }
-                    return label;
-                }
-            }
-        },
-        annotation: {
-            annotations: {
-                line1: {
-                    type: 'line',
-                    scaleID: 'x',
-                    value: interactiveN.value - 1,
-                    borderColor: 'hsl(205, 78%, 50%)',
-                    borderWidth: 2,
-                    borderDash: [6, 6],
-                    label: {
-                        content: `N = ${interactiveN.value}`,
-                        enabled: true,
-                        position: 'start'
-                    }
-                }
-            }
-        }
-    }
-}));
+}}));
 
 const operationCounts = computed(() => {
     const n = interactiveN.value;
